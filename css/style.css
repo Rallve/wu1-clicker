@@ -89,7 +89,7 @@ select {
 body {
     display: flex;
     flex-direction: column;
-    background-color: #f8f8f8;
+    background-color: #a19a70;
     color: #121212;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -171,6 +171,9 @@ footer {
     width: 8rem;
     height: 8rem;
     font-size: 2rem;
+    background-image: url(../img/sword.png);
+    background-size: cover;
+    background-position: center;
 }
 
 /* #msgbox är elementet som visar sidans toasts, popupmeddelanden
