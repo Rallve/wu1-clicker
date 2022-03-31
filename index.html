@@ -7,13 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Clicker exempel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="img-container">
-        <img src="img/landscape.png" alt="Fossil">
+        <img src="img/landscape.png" alt="landscape">
     </div>
     <main class="container">
+        <div class="action">
+            <img id="char" src="img/karaktär.png" alt="character">
+            <img id="slash" src="img/slash.png" alt="attack">
+        </div>
         <header>
             <h1>Legend of Fantasia</h1>
             <p>Med entusiasm och ditt trogna svärd ger du dig ut på äventyr i Fantasia.</p>
@@ -34,7 +41,7 @@
                     </li>
                 </ul>
                 <div class="game-button">
-                    <button id="click">Attack</button>
+                    <button id="click"></button>
                 </div>
             </div>
             <div class="w-100">

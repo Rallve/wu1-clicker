@@ -91,7 +91,7 @@ body {
     flex-direction: column;
     background-color: #a19a70;
     color: #121212;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Yusei Magic', sans-serif;
 }
 /* För att göra footern sticky så har vi flex på bodyn och då räcker det med 
  * margin-top auto här.
@@ -171,9 +171,13 @@ footer {
     width: 8rem;
     height: 8rem;
     font-size: 2rem;
-    background-image: url(../img/sword.png); /* fixa svärdet */
+    background-image: url(../img/sword_2.png); /* fixa svärdet */
     background-size: cover;
     background-position: center;
+}
+
+.game-button:active {
+    opacity: 0.5;
 }
 
 /* #msgbox är elementet som visar sidans toasts, popupmeddelanden
@@ -230,3 +234,27 @@ footer {
 .title {
     font-weight: 600;
 }
+
+.action {
+    display: flex;
+}
+
+#slash {
+    width: 10%;
+    height: 10%;
+    margin-top: -17%;
+    margin-bottom: 10%;
+    margin-left: -4%;
+    opacity: 0;
+}
+
+#char {
+    width: 12%;
+    height: 12%;
+    margin-top: -17%;
+    margin-bottom: 10%;
+}
+
+/*
+<img src="img/landscape.png" alt="landscape">
+*/

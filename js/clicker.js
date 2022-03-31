@@ -38,15 +38,23 @@ let achievementTest = false;
  * money.
  * Läs mer: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
  */
+
 clickerButton.addEventListener(
     'click',
     () => {
         // vid click öka score med 1
         money += moneyPerClick;
         // console.log(clicker.score);
+        const slash = document.getElementById("slash");
+        slash.style.opacity = 1;
+        const myTimeout = setTimeout(attack, 250);
     },
     false
 );
+
+function attack() {
+    slash.style.opacity = 0;
+}
 
 /* För att driva klicker spelet så kommer vi att använda oss av en metod som heter
  * requestAnimationFrame.
