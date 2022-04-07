@@ -42,6 +42,7 @@ let achievementTest = false;
 clickerButton.addEventListener(
     'click',
     () => {
+        move();
         // vid click öka score med 1
         money += moneyPerClick;
         // console.log(clicker.score);
@@ -192,4 +193,25 @@ function message(text, type) {
     setTimeout(() => {
         p.parentNode.removeChild(p);
     }, 2000);
+}
+
+var XP = 0;
+var nextLevel = 100;
+var level = 1;
+function move() {
+  var elem = document.getElementById("myBar");   
+  var id = setTimeout(frame, 10);
+  function frame() {
+  	XP += moneyPerClick;
+    elem.style.width = ((XP/nextLevel) * 100) + '%';
+    elem.textContent = XP + ' / ' + nextLevel;
+    if (XP >= nextLevel) {
+    	XP = XP - nextLevel;
+        level += 1;
+        nextLevel = Math.floor(nextLevel * 1.5);
+    	elem.style.width = ((XP/nextLevel) * 100) + '%';
+        elem.textContent = XP + ' / ' + nextLevel;
+        document.getElementById("text").textContent = 'Level: ' + level;
+        }
+    }
 }
