@@ -42,7 +42,7 @@ let achievementTest = false;
 clickerButton.addEventListener(
     'click',
     () => {
-        move();
+        xpGain();
         // vid click öka score med 1
         money += moneyPerClick;
         // console.log(clicker.score);
@@ -68,11 +68,12 @@ function attack() {
  */
 function step(timestamp) {
     moneyTracker.textContent = Math.round(money);
-    mpsTracker.textContent = moneyPerSecond;
+    mpsTracker.textContent = Math.round(moneyPerSecond);
     mpcTracker.textContent = moneyPerClick;
 
     if (timestamp >= last + 1000) {
         money += moneyPerSecond;
+        passiveXP();
         last = timestamp;
     }
 
@@ -114,19 +115,21 @@ window.addEventListener('load', (event) => {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
  */
+
+
 upgrades = [
     {
-        name: 'Vassare svärd',
+        name: 'Sharper sword',
         cost: 10,
         amount: 1,
     },
     {
-        name: 'Kampsportsträning',
+        name: 'Martial arts training',
         cost: 100,
         amount: 10,
     },
     {
-        name: 'Magisk träning',
+        name: 'Magic training',
         cost: 1000,
         amount: 100,
     },
@@ -157,20 +160,28 @@ function createCard(upgrade) {
     header.classList.add('title');
     const cost = document.createElement('p');
 
-    header.textContent = `${upgrade.name}, +${upgrade.amount} per sekund.`;
-    cost.textContent = `Köp för ${upgrade.cost} XP.`;
+    header.textContent = `${upgrade.name}, +${upgrade.amount} skill points per second.`;
+    cost.textContent = `Buy for ${upgrade.cost} skill points.`;
+
+    myInterval = setInterval(update, 1000);
+    function update() {
+        header.textContent = upgrade.name + ', +' + (Math.floor(upgrade.amount * 10)/10) + ' skill points per second.';
+    }
 
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
             moneyPerClick++;
+            amountTest++;
             money -= upgrade.cost;
             upgrade.cost = Math.floor(upgrade.cost * 1.5);
-            cost.textContent = 'Köp för ' + upgrade.cost + ' XP';
+            cost.textContent = 'Buy for ' + upgrade.cost + ' skill points.';
+            header.textContent = upgrade.name + ', +' + (Math.floor(upgrade.amount * 10)/10) + ' skill points per second.';
             moneyPerSecond += upgrade.amount;
-            message('Grattis, du har blivit starkare!', 'success');
+            message("You've become stronger!", "success");
         } else {
-            message('Du har inte tillräckligt mycket XP.', 'warning');
+            message("You don't have enough skill points.", "warning");
         }
+
     });
 
     card.appendChild(header);
@@ -198,20 +209,57 @@ function message(text, type) {
 var XP = 0;
 var nextLevel = 100;
 var level = 1;
-function move() {
+var moneyBonus = 1;
+function xpGain() {
   var elem = document.getElementById("myBar");   
-  var id = setTimeout(frame, 10);
+  setTimeout(frame, 10);
   function frame() {
   	XP += moneyPerClick;
     elem.style.width = ((XP/nextLevel) * 100) + '%';
-    elem.textContent = XP + ' / ' + nextLevel;
+    elem.textContent = Math.floor(XP) + ' / ' + nextLevel;
+    levelUp();
+    }
+}
+
+function passiveXP() {
+    var elem = document.getElementById("myBar");
+    xpPerSecond = moneyPerSecond / 100; 
+    XP += xpPerSecond;
+    elem.style.width = ((XP/nextLevel) * 100) + '%';
+    elem.textContent = Math.floor(XP) + ' / ' + nextLevel;
+    levelUp();
+}
+
+function levelUp() {
+    var elem = document.getElementById("myBar");
     if (XP >= nextLevel) {
     	XP = XP - nextLevel;
         level += 1;
         nextLevel = Math.floor(nextLevel * 1.5);
+        moneyBonus += 0.1;
     	elem.style.width = ((XP/nextLevel) * 100) + '%';
-        elem.textContent = XP + ' / ' + nextLevel;
-        document.getElementById("text").textContent = 'Level: ' + level;
-        }
+        elem.textContent = Math.floor(XP) + ' / ' + nextLevel;
+        document.getElementById("text").textContent = "Level: " + level;
+        upgrades.forEach(increaseAmount);
     }
 }
+
+function increaseAmount(upgrade) {
+    upgrade.amount = (upgrade.amount / (moneyBonus - 0.1)) * moneyBonus;
+}
+
+/*
+function multipleLevel() {
+    var n = 0;
+    let i = nextLevel;
+    if ((XP - i) > 0) {
+        for (i = nextLevel; i < XP; i * Math.floor(1.5 * i)) {
+            XP -= i;
+            level += 1;
+            n += 1;
+        }
+        console.log('it was run');
+        nextLevel = Math.floor(Math.floor(nextLevel * 1.5)^n);
+    }
+}
+*/
