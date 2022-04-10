@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -19,12 +20,16 @@
     <main class="container">
         <div class="action">
             <img id="char" src="img/karaktär.png" alt="character">
+            <div id="xpBox"></div>
             <img id="slash" src="img/slash.png" alt="attack">
             <img id="slime" src="img/SlimeGif.gif" alt="slime">
         </div>
-        <div id="text">Level: 1</div>
+        <div class="flex">
+            <p id="text">Level: 1</p>
+            <p id="levelUpText">Level up! +10% Coolness</p>
+        </div>
         <div class="progress-bar">
-            <div id="myBar">0 / 100</div>
+            <div id="levelBar">0 / 100</div>
         </div>
         <header>
             <h1>Legend of Fantasia</h1>
@@ -49,6 +54,7 @@
                     <button id="click"></button>
                 </div>
             </div>
+            <button id="statsBtn">Statistics</button>
             <div class="w-100">
                 <h1>Upgrades</h1>
                 <div id="upgradelist"></div>

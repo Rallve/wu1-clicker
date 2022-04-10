@@ -26,6 +26,8 @@ let moneyPerClick = 1;
 let moneyPerSecond = 0;
 let last = 0;
 
+var ogMPS = 0;
+
 let achievementTest = false;
 
 /* Med ett valt element, som knappen i detta fall så kan vi skapa listeners
@@ -46,6 +48,7 @@ clickerButton.addEventListener(
         // vid click öka score med 1
         money += moneyPerClick;
         // console.log(clicker.score);
+        xpSlpash();
         const slash = document.getElementById("slash");
         slash.style.opacity = 1;
         const myTimeout = setTimeout(attack, 250);
@@ -83,7 +86,7 @@ function step(timestamp) {
     // på samma sätt kan du även dölja uppgraderingar som inte kan köpas
     if (moneyPerClick == 10 && !achievementTest) {
         achievementTest = true;
-        message('Du kan nu krossa stora stenar!', 'achievement');
+        message('You can now crush large rocks!', 'achievement');
     }
 
     window.requestAnimationFrame(step);
@@ -123,16 +126,19 @@ upgrades = [
         name: 'Sharper sword',
         cost: 10,
         amount: 1,
+        ogAmount: 1,
     },
     {
         name: 'Martial arts training',
         cost: 100,
         amount: 10,
+        ogAmount: 10,
     },
     {
         name: 'Magic training',
         cost: 1000,
         amount: 100,
+        ogAmount: 100,
     },
 ];
 
@@ -172,12 +178,12 @@ function createCard(upgrade) {
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
             moneyPerClick++;
-            amountTest++;
             money -= upgrade.cost;
             upgrade.cost = Math.floor(upgrade.cost * 1.5);
             cost.textContent = 'Buy for ' + upgrade.cost + ' skill points.';
             header.textContent = upgrade.name + ', +' + (Math.floor(upgrade.amount * 10)/10) + ' skill points per second.';
             moneyPerSecond += upgrade.amount;
+            ogMPS += upgrade.ogAmount;
             message("You've become stronger!", "success");
         } else {
             message("You don't have enough skill points.", "warning");
@@ -207,12 +213,13 @@ function message(text, type) {
     }, 2000);
 }
 
+var elem = document.getElementById("levelBar");   
 var XP = 0;
 var nextLevel = 100;
 var level = 1;
 var moneyBonus = 1;
+
 function xpGain() {
-  var elem = document.getElementById("myBar");   
   setTimeout(frame, 10);
   function frame() {
   	XP += moneyPerClick;
@@ -223,7 +230,6 @@ function xpGain() {
 }
 
 function passiveXP() {
-    var elem = document.getElementById("myBar");
     xpPerSecond = moneyPerSecond / 100; 
     XP += xpPerSecond;
     elem.style.width = ((XP/nextLevel) * 100) + '%';
@@ -232,7 +238,6 @@ function passiveXP() {
 }
 
 function levelUp() {
-    var elem = document.getElementById("myBar");
     if (XP >= nextLevel) {
     	XP = XP - nextLevel;
         level += 1;
@@ -242,12 +247,51 @@ function levelUp() {
         elem.textContent = Math.floor(XP) + ' / ' + nextLevel;
         document.getElementById("text").textContent = "Level: " + level;
         upgrades.forEach(increaseAmount);
+        moneyPerSecond = ogMPS * moneyBonus;
+        document.getElementById("levelUpText").style.opacity = 1;
+        setTimeout(() => {
+            document.getElementById("levelUpText").style.opacity = 0;
+        }, 2000);
     }
 }
 
 function increaseAmount(upgrade) {
-    upgrade.amount = (upgrade.amount / (moneyBonus - 0.1)) * moneyBonus;
+    upgrade.amount = upgrade.ogAmount * moneyBonus;
 }
+
+function xpSlpash() {
+    const exp = document.createElement("p");
+    const xp = document.createTextNode("+" + moneyPerClick + " XP");
+    exp.setAttribute("class", "xp");
+    exp.appendChild(xp);
+    document.getElementById("xpBox").appendChild(exp);
+
+    const xpList = document.querySelectorAll(".xp");
+    xpList.forEach(xpStyle);
+
+    function xpStyle(text) {
+        text.style.opacity = 1;
+
+        var xpPos = 350;
+        setInterval(xpFloat, 5);
+
+        function xpFloat() {
+            if (text.style.opacity <= 0) {
+                clearInterval(null);
+                text.remove();
+            } else {
+                xpPos--;
+                text.style.opacity -= 0.005;
+                text.style.top = xpPos + "px";
+            }
+        }
+    }
+}
+
+
+
+
+
 
 /*
 function multipleLevel() {
