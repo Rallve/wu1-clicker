@@ -237,6 +237,7 @@ footer {
 
 .action {
     display: flex;
+    position: relative;
 }
 
 #slash {
@@ -260,7 +261,9 @@ footer {
     width: 12%;
     height: 12%;
     margin-top: -17%;
-    margin-bottom: 10%;
+    right: 300px;
+    position: static;
+    color: null;
 }
 
 .progress-bar {
@@ -347,6 +350,36 @@ footer {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+    font-size: 20px;
+}
+
+@keyframes enter {
+    0% {
+      transform: translateX(350%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+.slimeAnim {
+    animation: enter 1000ms;
+}
+
+.joke {
+    animation: joke 75ms infinite;
+}
+
+@keyframes joke {
+    0% {
+        transform: translateX(0);
+      }
+    50% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
 }
 
 /*

@@ -40,17 +40,21 @@ let achievementTest = false;
  * money.
  * Läs mer: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
  */
-
+var totalClicks = 0;
 clickerButton.addEventListener(
     'click',
     () => {
         xpGain();
         // vid click öka score med 1
         money += moneyPerClick;
-        // console.log(clicker.score);
+        totalClicks += 1;
         xpSlpash();
+        slimeAnim();
         const slash = document.getElementById("slash");
         slash.style.opacity = 1;
+        if (battleReady) {
+            healthCheck();
+        }
         const myTimeout = setTimeout(attack, 250);
     },
     false
@@ -109,6 +113,9 @@ window.addEventListener('load', (event) => {
         upgradeList.appendChild(createCard(upgrade));
     });
     window.requestAnimationFrame(step);
+    setTimeout(() => {
+        battle();
+    }, 1000);
 });
 
 /* En array med upgrades. Varje upgrade är ett objekt med egenskaperna name, cost
@@ -238,7 +245,29 @@ function passiveXP() {
 }
 
 function levelUp() {
-    if (XP >= nextLevel) {
+    setInterval(() => {
+        if (XP >= nextLevel) {
+            XP = XP - nextLevel;
+            level += 1;
+            nextLevel = Math.floor(nextLevel * 1.5);
+            moneyBonus += 0.1;
+            elem.style.width = ((XP/nextLevel) * 100) + '%';
+            elem.textContent = Math.floor(XP) + ' / ' + nextLevel;
+            document.getElementById("text").textContent = "Level: " + level;
+            upgrades.forEach(increaseAmount);
+            moneyPerSecond = ogMPS * moneyBonus;
+            document.getElementById("levelUpText").style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById("levelUpText").style.opacity = 0;
+            }, 2000);
+        } else {
+            clearInterval(null);
+        }
+    }, 50)
+}
+
+/*
+if (XP >= nextLevel) {
     	XP = XP - nextLevel;
         level += 1;
         nextLevel = Math.floor(nextLevel * 1.5);
@@ -253,7 +282,7 @@ function levelUp() {
             document.getElementById("levelUpText").style.opacity = 0;
         }, 2000);
     }
-}
+*/
 
 function increaseAmount(upgrade) {
     upgrade.amount = upgrade.ogAmount * moneyBonus;
@@ -272,7 +301,7 @@ function xpSlpash() {
     function xpStyle(text) {
         text.style.opacity = 1;
 
-        var xpPos = 350;
+        var xpPos = 50;
         setInterval(xpFloat, 5);
 
         function xpFloat() {
@@ -296,8 +325,12 @@ var statistics = document.getElementById("stats-text");
 btn.onclick = function() {
     stats.style.display = "block";
     statistics.innerHTML = 
-    "Skill points: " + money + "<br>" + 
-    "Epicness: " + ogMPS + " +" + Math.round((moneyBonus - 1) * 100) + "% = " + (Math.floor(moneyPerSecond * 10) / 10) + "<br>";
+    "Skill points: " + Math.round(money) + "<br>" + 
+    "Epicness: " + ogMPS + " +" + Math.round((moneyBonus - 1) * 100) + "% = " + (Math.floor(moneyPerSecond * 10) / 10) + "<br>" +
+    "Epicness bonus: " + Math.round((moneyBonus - 1) * 100) + "% <br>" + 
+    "Strength: " + moneyPerClick + "<br>" + 
+    "Level: " + level + "<br>" + 
+    "Total clicks: " + totalClicks;
 }
 
 close.onclick = function() {
@@ -310,7 +343,44 @@ window.onclick = function(event) {
     }
 }
 
+function slimeAnim() {
+    document.getElementById("slime").classList.add("slimeAnim");
+    setTimeout(() => {
+        document.getElementById("slime").classList.remove("slimeAnim");
+    }, 1000);
+}
 
+enemies = [
+    {
+        name: "slime",
+        health: 150,
+    },
+];
+
+var battleReady = false;
+var tempHealth = 0;
+var enemy = 0;
+function battle() {
+    battleReady = true;
+    enemy = Math.floor(Math.random() * enemies.length)
+    tempHealth = enemies[enemy].health;
+}
+
+function healthCheck() {
+    if (tempHealth <= 0) {
+        death();
+    } else {
+        tempHealth -= moneyPerClick;
+        console.log(tempHealth);
+    }
+}
+
+
+function death() {
+    const dead = enemies[enemy].name;
+    console.log(dead);
+    document.getElementById("slime").style.color = "red"; //funkar inte, måste byta slime.gif till en röd png
+}
 
 /*
 function multipleLevel() {
