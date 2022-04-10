@@ -117,6 +117,7 @@ window.addEventListener('load', (event) => {
  */
 
 
+
 upgrades = [
     {
         name: 'Sharper sword',
