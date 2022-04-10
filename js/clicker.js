@@ -288,8 +288,27 @@ function xpSlpash() {
     }
 }
 
+var stats = document.getElementById("stats");
+var btn = document.getElementById("statsBtn");
+var close = document.getElementsByClassName("close")[0];
+var statistics = document.getElementById("stats-text");
 
+btn.onclick = function() {
+    stats.style.display = "block";
+    statistics.innerHTML = 
+    "Skill points: " + money + "<br>" + 
+    "Epicness: " + ogMPS + " +" + Math.round((moneyBonus - 1) * 100) + "% = " + (Math.floor(moneyPerSecond * 10) / 10) + "<br>";
+}
 
+close.onclick = function() {
+    stats.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == stats) {
+        stats.style.display = "none";
+    }
+}
 
 
 
