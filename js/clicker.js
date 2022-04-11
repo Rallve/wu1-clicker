@@ -49,7 +49,6 @@ clickerButton.addEventListener(
         money += moneyPerClick;
         totalClicks += 1;
         xpSlpash();
-        slimeAnim();
         const slash = document.getElementById("slash");
         slash.style.opacity = 1;
         if (battleReady) {
@@ -367,8 +366,19 @@ function battle() {
 }
 
 function healthCheck() {
+    var enem = document.getElementById(enemies[enemy].name);
+    enem.classList.add(enemies[enemy].name + "-hurt");
+    enem.classList.remove(enemies[enemy].name + "-fine")
+    setTimeout(() => {
+        enem.classList.remove(enemies[enemy].name + "-hurt");
+        enem.classList.add(enemies[enemy].name + "-fine")
+    }, 100);
     if (tempHealth <= 0) {
-        death();
+        enem.classList.add("death");
+        setTimeout(() => {
+            enem.classList.remove("death");
+            enem.style.opacity = 0;
+        }, 500);
     } else {
         tempHealth -= moneyPerClick;
         console.log(tempHealth);

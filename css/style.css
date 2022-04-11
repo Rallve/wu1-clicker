@@ -263,7 +263,9 @@ footer {
     margin-top: -17%;
     right: 300px;
     position: static;
-    color: null;
+    opacity: 1;
+    background-size: contain;
+    padding: 7%;
 }
 
 .progress-bar {
@@ -380,6 +382,40 @@ footer {
     100% {
       transform: translateX(0%);
     }
+}
+
+.slime-hurt { /* finish this */
+    background: url("/img/slime-hurt.png");
+    animation: hurt 100ms;
+}
+
+@keyframes hurt {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(15%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes death {
+    0% {
+        transform: translateX(0) translateY(0) scale(1);
+    }
+    100% {
+        transform: translateX(400%) translateY(-400%) scale(0);
+    }
+}
+
+.death {
+    animation: death 500ms;
+}
+
+.slime-fine {
+    background: url("/img/slimeGif.gif");
 }
 
 /*
