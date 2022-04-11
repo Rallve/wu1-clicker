@@ -358,13 +358,17 @@ footer {
 @keyframes enter {
     0% {
       transform: translateX(350%);
+      opacity: 0;
+    }
+    65% {
+        opacity: 1;
     }
     100% {
       transform: translateX(0);
     }
 }
 
-.slimeAnim {
+.enter {
     animation: enter 1000ms;
 }
 
@@ -406,7 +410,7 @@ footer {
         transform: translateX(0) translateY(0) scale(1);
     }
     100% {
-        transform: translateX(400%) translateY(-400%) scale(0);
+        transform: translateX(400%) translateY(-400%) scale(0) rotate(2000deg);
     }
 }
 

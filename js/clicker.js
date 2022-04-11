@@ -112,9 +112,7 @@ window.addEventListener('load', (event) => {
         upgradeList.appendChild(createCard(upgrade));
     });
     window.requestAnimationFrame(step);
-    setTimeout(() => {
-        battle();
-    }, 1000);
+    battle();
 });
 
 /* En array med upgrades. Varje upgrade är ett objekt med egenskaperna name, cost
@@ -359,14 +357,20 @@ enemies = [
 var battleReady = false;
 var tempHealth = 0;
 var enemy = 0;
+var enem = "";
 function battle() {
-    battleReady = true;
-    enemy = Math.floor(Math.random() * enemies.length)
+    enemy = Math.floor(Math.random() * enemies.length);
+    enem = document.getElementById(enemies[enemy].name);
+    enem.style.opacity = 1;
     tempHealth = enemies[enemy].health;
+    enem.classList.add("enter");
+    setTimeout(() => {
+        enem.classList.remove("enter");
+        battleReady = true;
+    }, 1000);
 }
 
 function healthCheck() {
-    var enem = document.getElementById(enemies[enemy].name);
     enem.classList.add(enemies[enemy].name + "-hurt");
     enem.classList.remove(enemies[enemy].name + "-fine")
     setTimeout(() => {
@@ -374,10 +378,14 @@ function healthCheck() {
         enem.classList.add(enemies[enemy].name + "-fine")
     }, 100);
     if (tempHealth <= 0) {
+        battleReady = false;
         enem.classList.add("death");
         setTimeout(() => {
             enem.classList.remove("death");
             enem.style.opacity = 0;
+            setTimeout(() => {
+                battle();
+            }, 1000);
         }, 500);
     } else {
         tempHealth -= moneyPerClick;
