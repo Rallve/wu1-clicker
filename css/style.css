@@ -389,7 +389,7 @@ footer {
 }
 
 .slime-hurt { /* finish this */
-    background: url("/img/slime-hurt.png");
+    background: url("../img/slime-hurt.png");
     animation: hurt 100ms;
 }
 
@@ -419,7 +419,7 @@ footer {
 }
 
 .slime-fine {
-    background: url("/img/SlimeGif.gif");
+    background: url("../img/SlimeGif.gif");
 }
 
 /*

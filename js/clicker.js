@@ -350,7 +350,7 @@ function slimeAnim() {
 enemies = [
     {
         name: "slime",
-        health: 150,
+        health: 300,
     },
 ];
 
@@ -378,26 +378,26 @@ function healthCheck() {
         enem.classList.add(enemies[enemy].name + "-fine")
     }, 100);
     if (tempHealth <= 0) {
-        battleReady = false;
-        enem.classList.add("death");
-        setTimeout(() => {
-            enem.classList.remove("death");
-            enem.style.opacity = 0;
-            setTimeout(() => {
-                battle();
-            }, 1000);
-        }, 500);
+        death();
     } else {
         tempHealth -= moneyPerClick;
         console.log(tempHealth);
+        if (tempHealth <= 0) {
+            death();
+        }
     }
 }
 
-
 function death() {
-    const dead = enemies[enemy].name;
-    console.log(dead);
-    document.getElementById("slime").style.color = "red"; //funkar inte, måste byta slime.gif till en röd png
+    battleReady = false;
+    enem.classList.add("death");
+    setTimeout(() => {
+        enem.classList.remove("death");
+        enem.style.opacity = 0;
+        setTimeout(() => {
+            battle();
+        }, 1000);
+    }, 500);
 }
 
 /*
