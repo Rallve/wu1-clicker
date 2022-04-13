@@ -44,14 +44,14 @@ var totalClicks = 0;
 clickerButton.addEventListener(
     'click',
     () => {
-        xpGain();
         // vid click öka score med 1
-        money += moneyPerClick;
         totalClicks += 1;
-        xpSlpash();
         const slash = document.getElementById("slash");
         slash.style.opacity = 1;
         if (battleReady) {
+            money += moneyPerClick;
+            xpGain();
+            xpSlpash();
             healthCheck();
         }
         const myTimeout = setTimeout(attack, 250);
@@ -351,31 +351,37 @@ enemies = [
     {
         name: "slime",
         health: 300,
+        weight: 90,
     },
+    {
+        name: "infernal-slime",
+        health: 5000,
+        weight: 10,
+    }
 ];
 
 var battleReady = false;
 var tempHealth = 0;
-var enemy = 0;
-var enem = "";
+var enemInd = 0;
+const enemy = document.getElementById("enemy");
 function battle() {
-    enemy = Math.floor(Math.random() * enemies.length);
-    enem = document.getElementById(enemies[enemy].name);
-    enem.style.opacity = 1;
-    tempHealth = enemies[enemy].health;
-    enem.classList.add("enter");
+    enemInd = randomEnemy();
+    enemy.style.opacity = 1;
+    tempHealth = enemies[enemInd].health;
+    enemy.classList.add(enemies[enemInd].name + "-fine")
+    enemy.classList.add("enter");
     setTimeout(() => {
-        enem.classList.remove("enter");
+        enemy.classList.remove("enter");
         battleReady = true;
     }, 1000);
 }
 
 function healthCheck() {
-    enem.classList.add(enemies[enemy].name + "-hurt");
-    enem.classList.remove(enemies[enemy].name + "-fine")
+    enemy.classList.add(enemies[enemInd].name + "-hurt");
+    enemy.classList.remove(enemies[enemInd].name + "-fine")
     setTimeout(() => {
-        enem.classList.remove(enemies[enemy].name + "-hurt");
-        enem.classList.add(enemies[enemy].name + "-fine")
+        enemy.classList.remove(enemies[enemInd].name + "-hurt");
+        enemy.classList.add(enemies[enemInd].name + "-fine")
     }, 100);
     if (tempHealth <= 0) {
         death();
@@ -390,28 +396,29 @@ function healthCheck() {
 
 function death() {
     battleReady = false;
-    enem.classList.add("death");
+    enemy.classList.add("death");
     setTimeout(() => {
-        enem.classList.remove("death");
-        enem.style.opacity = 0;
+        enemy.classList.remove("death");
+        enemy.style.opacity = 0;
+        enemy.classList.remove(enemies[enemInd].name + "-fine");
         setTimeout(() => {
             battle();
-        }, 1000);
+        }, 100);
     }, 500);
 }
 
-/*
-function multipleLevel() {
-    var n = 0;
-    let i = nextLevel;
-    if ((XP - i) > 0) {
-        for (i = nextLevel; i < XP; i * Math.floor(1.5 * i)) {
-            XP -= i;
-            level += 1;
-            n += 1;
+function randomEnemy() {
+    const weightArray = enemies.map(a => a.weight);
+    var weightTotal = 0;
+    for (let i = 0; i < weightArray.length; i++) {
+        weightTotal += weightArray[i];
+    }
+    var enemRand = Math.ceil(Math.random() * weightTotal);
+    for (let i = 0; i < weightArray.length; i++) {
+        if (enemRand <= enemies[i].weight) {
+            return i;
+        } else {
+            enemRand -= enemies[i].weight;
         }
-        console.log('it was run');
-        nextLevel = Math.floor(Math.floor(nextLevel * 1.5)^n);
     }
 }
-*/

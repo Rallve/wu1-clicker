@@ -257,7 +257,7 @@ footer {
     margin-left: 35%;
 }
 
-#slime {
+#enemy {
     width: 12%;
     height: 12%;
     margin-top: -17%;
@@ -388,11 +388,6 @@ footer {
     }
 }
 
-.slime-hurt { /* finish this */
-    background: url("../img/slime-hurt.png");
-    animation: hurt 100ms;
-}
-
 @keyframes hurt {
     0% {
         transform: translateX(0);
@@ -422,6 +417,17 @@ footer {
     background: url("../img/SlimeGif.gif");
 }
 
-/*
-<img src="img/landscape.png" alt="landscape">
-*/
+.slime-hurt { /* finish this */
+    background: url("../img/slime-hurt.png");
+    animation: hurt 100ms;
+}
+
+.infernal-slime-fine {
+    background: url("../img/SlimeGif.gif");
+    filter: hue-rotate(-100deg) saturate(200%);
+}
+
+.infernal-slime-hurt {
+    background: url("../img/slime-hurt.png");
+    animation: hurt 100ms;
+}
