@@ -11,6 +11,7 @@ const clickerButton = document.querySelector('#click');
 const moneyTracker = document.querySelector('#money');
 const mpsTracker = document.querySelector('#mps'); // money per second
 const mpcTracker = document.querySelector('#mpc'); // money per click
+const goldTracker = document.querySelector('#gold')
 const upgradeList = document.querySelector('#upgradelist');
 const msgbox = document.querySelector('#msgbox');
 
@@ -76,6 +77,7 @@ function step(timestamp) {
     moneyTracker.textContent = Math.round(money);
     mpsTracker.textContent = Math.round(moneyPerSecond);
     mpcTracker.textContent = moneyPerClick;
+    goldTracker.textContent = gold;
 
     if (timestamp >= last + 1000) {
         money += moneyPerSecond;
@@ -314,12 +316,41 @@ function xpSlpash() {
     }
 }
 
+function goldSlpash() {
+    const goldP = document.createElement("p");
+    const g = document.createTextNode("+" + gold + " Gold!");
+    goldP.setAttribute("class", "gp");
+    goldP.appendChild(g);
+    document.getElementById("goldBox").appendChild(goldP);
+
+    const goldList = document.querySelectorAll(".gp");
+    goldList.forEach(goldStyle);
+
+    function goldStyle(text) {
+        text.style.opacity = 1;
+
+        var goldPos = 50;
+        setInterval(goldFloat, 5);
+
+        function goldFloat() {
+            if (text.style.opacity <= 0) {
+                clearInterval(null);
+                text.remove();
+            } else {
+                goldPos--;
+                text.style.opacity -= 0.005;
+                text.style.top = goldPos + "px";
+            }
+        }
+    }
+}
+
 var stats = document.getElementById("stats");
-var btn = document.getElementById("statsBtn");
-var close = document.getElementsByClassName("close")[0];
+var statBtn = document.getElementById("statsBtn");
+var statsClose = document.getElementsByClassName("stats-close")[0];
 var statistics = document.getElementById("stats-text");
 
-btn.onclick = function() {
+statBtn.onclick = function() {
     stats.style.display = "block";
     statistics.innerHTML = 
     "Skill points: " + Math.round(money) + "<br>" + 
@@ -330,13 +361,39 @@ btn.onclick = function() {
     "Total clicks: " + totalClicks;
 }
 
-close.onclick = function() {
+statsClose.onclick = function() {
     stats.style.display = "none";
 }
 
 window.onclick = function(event) {
-    if (event.target == stats) {
+    if (event.target == stats || event.target == shop) {
         stats.style.display = "none";
+        shop.style.display = "none";
+    }
+}
+
+const shop = document.getElementById("shop");
+const shopBtn = document.getElementById("shopBtn");
+const shopClose = document.getElementsByClassName("shop-close")[0];
+const shopItems = document.getElementById("shop-text");
+const strPot = document.getElementById("strPot");
+
+var gold = 0;
+
+shopBtn.onclick = function() {
+    shop.style.display = "block";
+}
+
+shopClose.onclick = function() {
+    shop.style.display = "none";
+}
+
+strPot.onclick = function() { //lägg till i en lista istället
+    if (gold >= 10) {
+        var strEffect = moneyPerClick;
+    setTimeout(() => {
+        strEffect = 0;
+    }, 60000);
     }
 }
 
@@ -352,11 +409,15 @@ enemies = [
         name: "slime",
         health: 300,
         weight: 90,
+        goldMin: 1,
+        goldMax: 3,
     },
     {
         name: "infernal-slime",
         health: 5000,
         weight: 10,
+        goldMin: 15,
+        goldMax: 40,
     }
 ];
 
@@ -396,6 +457,7 @@ function healthCheck() {
 
 function death() {
     battleReady = false;
+    gold += enemies[enemInd].goldMin + Math.floor(Math.random() * (1 + enemies[enemInd].goldMax - enemies[enemInd].goldMin));
     enemy.classList.add("death");
     setTimeout(() => {
         enemy.classList.remove("death");
