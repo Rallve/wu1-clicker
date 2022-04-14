@@ -145,6 +145,34 @@ footer {
        justify-content: center;
    }
 }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    height: 9rem;
+    min-height: 8rem;
+    border: 2px solid black;
+    background-color: grey;
+    padding: 7px;
+}
+
+#shopBtn {
+    
+}
+
+#statsBtn {
+   
+}
+
+#test1 {
+    
+}
+
+#test2 {
+  
+}
+
 /* centrera bilden */
 .img-container {
     width: 100%;
@@ -164,6 +192,7 @@ footer {
 .game-currency {
     list-style: none;
     padding: 0;
+    width: 14rem;
 }
 
 /* för spelelementet används #id som selektor för att skapa css reglerna */
@@ -305,9 +334,55 @@ footer {
     position: absolute;
 }
 
-#statsBtn {
-    background-color: grey;
-    color: white;
+.gp {
+    font-family: 'Press Start 2P', cursive;
+    color: yellow;
+    position: absolute;
+}
+
+#shop {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 150px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#shop-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+.shop-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.shop-close:hover,
+.shop-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#shop-text {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size: 20px;
 }
 
 #stats {
@@ -332,15 +407,15 @@ footer {
     width: 60%;
 }
 
-.close {
+.stats-close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.stats-close:hover,
+.stats-close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -417,7 +492,7 @@ footer {
     background: url("../img/SlimeGif.gif");
 }
 
-.slime-hurt { /* finish this */
+.slime-hurt {
     background: url("../img/slime-hurt.png");
     animation: hurt 100ms;
 }
