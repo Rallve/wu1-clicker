@@ -1,22 +1,33 @@
 {
-  "name": "wu1-clicker",
+  "name": "wsp1-user-forum",
   "version": "1.0.0",
-  "description": "Du har fått i uppdrag att designa och skapa ett clicker-spel från Kakmonstret AB. Till ditt förfogande har du lite kod som en tidigare anställd lämnat efter sig, använd den.",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -e js,html,njk ./server.js & npm run scss",
     "scss": "sass --watch scss:public/css"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rallve/wu1-clicker.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Rallve/wu1-clicker/issues"
+  "devDependencies": {
+    "nodemon": "^2.0.21"
   },
-  "homepage": "https://github.com/Rallve/wu1-clicker#readme"
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "modern-css-reset": "^1.4.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.2.0",
+    "nunjucks": "^3.2.3",
+    "sass": "^1.59.3",
+    "server": "^1.0.38",
+    "session": "^0.1.0",
+    "validator": "^13.9.0"
+  }
 }
