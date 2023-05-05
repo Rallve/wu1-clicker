@@ -1,0 +1,22 @@
+{
+  "name": "wu1-clicker",
+  "version": "1.0.0",
+  "description": "Du har fått i uppdrag att designa och skapa ett clicker-spel från Kakmonstret AB. Till ditt förfogande har du lite kod som en tidigare anställd lämnat efter sig, använd den.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e js,html,njk ./server.js & npm run scss",
+    "scss": "sass --watch scss:public/css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rallve/wu1-clicker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rallve/wu1-clicker/issues"
+  },
+  "homepage": "https://github.com/Rallve/wu1-clicker#readme"
+}
