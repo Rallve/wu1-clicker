@@ -1,0 +1,553 @@
+@charset "UTF-8";
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/*
+Credit to Lucas Liedgren's Modern CSS Reset
+@link https://piccalil.li/blog/a-modern-css-reset/
+🟣 = additions by Stephanie Eckles 
+Twitter/Github/Codepen: @5t3ph
+*/
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, 
+which suggests default styling will be removed 
+🟣 Selector updated to reduce specificity
+*/
+:where(ul, ol):where([role=list]) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  /* 🟣 Set base font-family */
+  font-family: system-ui, sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  /* 🟣 Relatively sized thickness and offset */
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.15em;
+}
+
+/* Make images easier to work with */
+/* removed SVG */
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+/* 🟣 Ensure images with a width attr responsively resize */
+img[width] {
+  height: auto;
+}
+
+/* 🟣 Give SVGs common baseline */
+svg {
+  /* Inherit from text color */
+  fill: currentColor;
+  /* Allow click events to "fall through" */
+  pointer-events: none;
+}
+
+/* 🟣 Scroll margin allowance above anchor links */
+:target {
+  scroll-margin-top: 2rem;
+}
+
+/* 🟣 Scroll margin allowance below focused elements 
+to ensure they are clearly in view */
+:focus {
+  scroll-margin-bottom: 8vh;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #a19a70;
+  color: #121212;
+  font-family: "Yusei Magic", sans-serif;
+}
+
+/* För att göra footern sticky så har vi flex på bodyn och då räcker det med 
+ * margin-top auto här.
+ */
+footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* Alla strukturelement på sidan kommer att använda denna container för att skapa
+ * en centrerad layout.
+ * Layout styrs även här att fungera skapligt med olika devices.
+ */
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 36rem) {
+  .container {
+    max-width: 34rem;
+  }
+}
+@media (min-width: 48rem) {
+  .container {
+    max-width: 44rem;
+  }
+}
+@media (min-width: 62rem) {
+  .container {
+    max-width: 54rem;
+  }
+}
+/* Här finns ett par regler för att responsivt anpassa designen på sidan. 
+ * Vi gömmer headern på mobil för att spara plats och vänder på spelet så att 
+ * knappen blir överst på sidan.
+ */
+@media (max-width: 36rem) {
+  header {
+    display: none;
+  }
+  .game-hud {
+    flex-direction: column-reverse;
+  }
+  .game-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+.loginBar {
+  background-color: rgb(225, 225, 225);
+  padding: 7px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  height: 9rem;
+  min-height: 8rem;
+  border: 2px solid black;
+  background-color: grey;
+  padding: 7px;
+}
+
+/* centrera bilden */
+.img-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.game {
+  margin-top: 2rem;
+}
+
+/* flex och space between ordnar layouten för speldata och knappen på desktop */
+.game-hud {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-currency {
+  list-style: none;
+  padding: 0;
+  width: 14rem;
+}
+
+/* för spelelementet används #id som selektor för att skapa css reglerna */
+#click {
+  width: 8rem;
+  height: 8rem;
+  font-size: 2rem;
+  background-image: url(../img/sword_2.png); /* fixa svärdet */
+  background-size: cover;
+  background-position: center;
+}
+
+.game-button:active {
+  opacity: 0.5;
+}
+
+/* #msgbox är elementet som visar sidans toasts, popupmeddelanden
+* fixed fungerar liknande absolute för att positionera element på ett fast ställe
+* vi använder måttet vmin som skalas efter webbläsarens storlek
+*/
+#msgbox {
+  position: fixed;
+  right: 2vmin;
+  bottom: 2vmin;
+  min-width: 16rem;
+}
+
+#msgbox > p {
+  margin-bottom: 0.2rem;
+  padding: 1rem;
+}
+
+/* de här klasserna används för att bestämma stilen på de olika storternas
+ * meddelanden. Javascript används för att lägga till stilen på meddelandet
+ */
+.warning {
+  background-color: palevioletred;
+}
+
+.success {
+  background-color: mediumspringgreen;
+}
+
+.achievement {
+  color: #121212;
+  background-color: rebeccapurple;
+}
+
+/* dessa kort används för spelets uppgraderingar 
+ * lägg märke till padding och margin för att ge elementen lite luft och 
+ * skapa en mer lättläst struktur
+ */
+.card {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid #646464;
+  margin: 0.5rem 0;
+  padding: 1rem 0.5rem;
+}
+
+.card:hover {
+  background-color: #dfdfdf;
+}
+
+/* klassen används på kortets titel, font-weight: 600 gör fonten fetare, en normal
+ * font vikt är oftast 400
+ */
+.title {
+  font-weight: 600;
+}
+
+.action {
+  display: flex;
+  position: relative;
+}
+
+#slash {
+  width: 10%;
+  height: 10%;
+  margin-top: -17%;
+  margin-bottom: 10%;
+  margin-left: -4%;
+  opacity: 0;
+}
+
+#char {
+  width: 12%;
+  height: 12%;
+  margin-top: -17%;
+  margin-bottom: 10%;
+  margin-left: 35%;
+}
+
+#enemy {
+  width: 12%;
+  height: 12%;
+  margin-top: -17%;
+  right: 300px;
+  position: static;
+  opacity: 1;
+  background-size: contain;
+  padding: 7%;
+}
+
+.progress-bar {
+  border: 3px solid black;
+  background-color: grey;
+}
+
+#levelBar {
+  background-color: purple;
+  height: 24px;
+  width: 0%;
+  color: white;
+  white-space: nowrap;
+}
+
+#text {
+  font-size: 25px;
+  font-weight: 1000;
+}
+
+#levelUpText {
+  color: lime;
+  font-family: "Press Start 2P", cursive;
+  font-size: 20px;
+  opacity: 0;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.xp {
+  font-family: "Press Start 2P", cursive;
+  color: yellow;
+  position: absolute;
+}
+
+.gp {
+  font-family: "Press Start 2P", cursive;
+  color: yellow;
+  position: absolute;
+}
+
+.popup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 150px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+}
+
+.popup-close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.popup-close:hover,
+.popup-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.popup-text {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-size: 20px;
+}
+
+@keyframes enter {
+  0% {
+    transform: translateX(350%);
+    opacity: 0;
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.enter {
+  animation: enter 1000ms;
+}
+
+.joke {
+  animation: joke 75ms infinite;
+}
+
+@keyframes joke {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+@keyframes hurt {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(15%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes death {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  100% {
+    transform: translateX(400%) translateY(-400%) scale(0) rotate(2000deg);
+  }
+}
+.death {
+  animation: death 500ms;
+}
+
+.slime-fine {
+  background: url("../img/SlimeGif.gif");
+}
+
+.slime-hurt {
+  background: url("../img/slime-hurt.png");
+  animation: hurt 100ms;
+}
+
+.infernal-slime-fine {
+  background: url("../img/SlimeGif.gif");
+  filter: hue-rotate(-100deg) saturate(200%);
+}
+
+.infernal-slime-hurt {
+  background: url("../img/slime-hurt.png");
+  animation: hurt 100ms;
+}
+
+/*# sourceMappingURL=style.css.map */

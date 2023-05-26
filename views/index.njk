@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Clicker fantasia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +14,13 @@
 </head>
 
 <body>
+    <div class="loginBar">
+        <a id="login" href="/login">Log in</a>
+        <a id="register" href="/register">Register</a>
+    </div>
+
     <div class="img-container">
-        <img src="img/landscape.png" alt="landscape">
+        <img src="img/landscape2.png" alt="landscape">
     </div>
     <main class="container">
         <div class="action">
@@ -57,25 +62,32 @@
                 <div class="menu">
                     <button id="shopBtn">Shop</button>
                     <button id="statsBtn">Statistics</button>
+                    <button id="settingsBtn">Settings</button>
                 </div>
                 <div class="game-button">
                     <button id="click"></button>
                 </div>
             </div>
-            <div id="stats">
-                <div id="stats-content">
-                    <span class="stats-close">&times;</span>
-                    <p id="stats-text"></p>
+            <div class="popup" id="stats">
+                <div class="popup-content" id="stats-content">
+                    <span class="popup-close stats-close">&times;</span>
+                    <p class="popup-text" id="stats-text"></p>
                 </div>
             </div>
-            <div id="shop">
-                <div id="shop-content">
-                    <span class="shop-close">&times;</span>
-                    <p id="shop-text"></p>
+            <div class="popup" id="shop">
+                <div class="popup-content" id="shop-content">
+                    <span class="popup-close shop-close">&times;</span>
+                    <p class="popup-text" id="shop-text"></p>
                     <button id="strPot">Strength potion</button>
                     <p>Köp för: 10 guld</p>
                 </div>
             </div>
+            <div class="popup" id="settings">
+                <div class="popup-content" id="settings-content">
+                    <span class="popup-close settings-close">&times;</span>
+                    <p class="popup-text" id="settings-text"></p>
+                </div>
+            </div>  
             <div class="w-100">
                 <h1>Upgrades</h1>
                 <div id="upgradelist"></div>

@@ -345,6 +345,8 @@ function goldSlpash() {
     }
 }
 
+//------------------------------------------------------------------
+
 var stats = document.getElementById("stats");
 var statBtn = document.getElementById("statsBtn");
 var statsClose = document.getElementsByClassName("stats-close")[0];
@@ -372,6 +374,8 @@ window.onclick = function(event) {
     }
 }
 
+//--------------------------------------------------------------------
+
 const shop = document.getElementById("shop");
 const shopBtn = document.getElementById("shopBtn");
 const shopClose = document.getElementsByClassName("shop-close")[0];
@@ -396,6 +400,23 @@ strPot.onclick = function() { //lägg till i en lista istället
     }, 60000);
     }
 }
+
+//-------------------------------------------------------------------
+
+const settings = document.getElementById("settings");
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsClose = document.getElementsByClassName("settings-close")[0];
+const settingsItems = document.getElementById("settings-text");
+
+settingsBtn.onclick = function() {
+    settings.style.display = "block";
+}
+
+settingsClose.onclick = function() {
+    settings.style.display = "none";
+}
+
+//-------------------------------------------------------------------
 
 function slimeAnim() {
     document.getElementById("slime").classList.add("slimeAnim");
