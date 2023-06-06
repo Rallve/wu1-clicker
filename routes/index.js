@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
+const pool = require('../utils/database.js');
+const promisePool = pool.promise();
 
 
 router.get('/', async function (req, res, next) {
@@ -43,7 +46,7 @@ router.post('/login', async function (req, res, next) {
         if (password) sanitizedPass = sanitize(password);
     }
 
-    const [users] = await promisePool.query("SELECT * FROM lgl23users WHERE name=?", username);
+    const [users] = await promisePool.query("SELECT * FROM lgl23clickerPlayers WHERE name=?", username);
     console.log(users)
     if (users.length > 0) {
 

@@ -133,18 +133,21 @@ upgrades = [
         cost: 10,
         amount: 1,
         ogAmount: 1,
+        num: 0,
     },
     {
         name: 'Martial arts training',
         cost: 100,
         amount: 10,
         ogAmount: 10,
+        num: 0,
     },
     {
         name: 'Magic training',
         cost: 1000,
         amount: 100,
         ogAmount: 100,
+        num: 0,
     },
 ];
 
@@ -183,13 +186,8 @@ function createCard(upgrade) {
 
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
-            moneyPerClick++;
-            money -= upgrade.cost;
-            upgrade.cost = Math.floor(upgrade.cost * 1.5);
-            cost.textContent = 'Buy for ' + upgrade.cost + ' skill points.';
-            header.textContent = upgrade.name + ', +' + (Math.floor(upgrade.amount * 10)/10) + ' skill points per second.';
-            moneyPerSecond += upgrade.amount;
-            ogMPS += upgrade.ogAmount;
+            buyUpgrade(upgrade, cost, header);
+            upgrade.num++;
             message("You've become stronger!", "success");
         } else {
             message("You don't have enough skill points.", "warning");
@@ -200,6 +198,16 @@ function createCard(upgrade) {
     card.appendChild(header);
     card.appendChild(cost);
     return card;
+}
+
+function buyUpgrade(upgrade, cost, header) {
+    moneyPerClick++;
+    money -= upgrade.cost;
+    upgrade.cost = Math.floor(upgrade.cost * 1.5);
+    cost.textContent = 'Buy for ' + upgrade.cost + ' skill points.';
+    header.textContent = upgrade.name + ', +' + (Math.floor(upgrade.amount * 10)/10) + ' skill points per second.';
+    moneyPerSecond += upgrade.amount;
+    ogMPS += upgrade.ogAmount;
 }
 
 /* Message visar hur vi kan skapa ett html element och ta bort det.
@@ -368,9 +376,10 @@ statsClose.onclick = function() {
 }
 
 window.onclick = function(event) {
-    if (event.target == stats || event.target == shop) {
+    if (event.target == stats || event.target == shop || event.target == settings) {
         stats.style.display = "none";
         shop.style.display = "none";
+        settings.style.display = "none";
     }
 }
 
