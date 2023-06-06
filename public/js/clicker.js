@@ -1,25 +1,7 @@
-/*
-router.get('/', async function (req, res, next) {
-    const [users] = await promisePool.query("SELECT * FROM lgl23clickerPlayers WHERE name=?", username);
-    res.render('index.njk', {
-        rows: rows,
-        title: 'Forum',
-        session: req.session.LoggedIn
-    });
-});
-*/
 
 
 
-/* Med document.queryselector(selector) kan vi hämta
- * de element som vi behöver från html dokumentet.
- * Vi spearar elementen i const variabler då vi inte kommer att
- * ändra dess värden.
- * Läs mer:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
- * https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
- * Viktigt: queryselector ger oss ett html element eller flera om det finns.
- */
+
 const clickerButton = document.querySelector('#click');
 const moneyTracker = document.querySelector('#money');
 const mpsTracker = document.querySelector('#mps'); // money per second
@@ -28,13 +10,7 @@ const goldTracker = document.querySelector('#gold')
 const upgradeList = document.querySelector('#upgradelist');
 const msgbox = document.querySelector('#msgbox');
 
-/* Följande variabler använder vi för att hålla reda på hur mycket pengar som
- * spelaren, har och tjänar.
- * last används för att hålla koll på tiden.
- * För dessa variabler kan vi inte använda const, eftersom vi tilldelar dem nya
- * värden, utan då använder vi let.
- * Läs mer: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
- */
+
 let money = 0;
 let moneyPerClick = 1;
 let moneyPerSecond = 0;
@@ -44,16 +20,7 @@ var ogMPS = 0;
 
 let achievementTest = false;
 
-/* Med ett valt element, som knappen i detta fall så kan vi skapa listeners
- * med addEventListener så kan vi lyssna på ett specifikt event på ett html-element
- * som ett klick.
- * Detta kommer att driva klickerknappen i spelet.
- * Efter 'click' som är händelsen vi lyssnar på så anges en callback som kommer
- * att köras vi varje klick. I det här fallet så använder vi en anonym funktion.
- * Koden som körs innuti funktionen är att vi lägger till moneyPerClick till
- * money.
- * Läs mer: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
- */
+
 var totalClicks = 0;
 clickerButton.addEventListener(
     'click',

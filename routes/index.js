@@ -21,7 +21,6 @@ router.get('/login', function (req, res, next) {
 router.post('/login', async function (req, res, next) {
     const { username, password } = req.body;
     const errors = [];
-    console.log('test');
 
     if (username === "") {
         console.log("Username is Required")
@@ -49,18 +48,17 @@ router.post('/login', async function (req, res, next) {
     const [users] = await promisePool.query("SELECT * FROM lgl23clickerPlayers WHERE name=?", username);
     console.log(users)
     if (users.length > 0) {
-
         bcrypt.compare(password, users[0].password, function (err, result) {
             // result == true logga in, annars buuuu 
             if (result) {
                 
-
                 req.session.userId = username;
                 req.session.LoggedIn = true;
-                return res.render("index.njk", {
-                    
-                })
-                //return res.redirect('/');
+                //return res.render("index.njk", {
+
+                //})
+                //return res.json(users[0])
+                return res.redirect('/');
             } else {
                 errors.push("Invalid username or password")
                 return res.json(errors)
