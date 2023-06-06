@@ -20,7 +20,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     LoggedIn: false,
-  }));
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

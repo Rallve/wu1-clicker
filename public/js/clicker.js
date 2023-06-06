@@ -1,3 +1,16 @@
+/*
+router.get('/', async function (req, res, next) {
+    const [users] = await promisePool.query("SELECT * FROM lgl23clickerPlayers WHERE name=?", username);
+    res.render('index.njk', {
+        rows: rows,
+        title: 'Forum',
+        session: req.session.LoggedIn
+    });
+});
+*/
+
+
+
 /* Med document.queryselector(selector) kan vi hämta
  * de element som vi behöver från html dokumentet.
  * Vi spearar elementen i const variabler då vi inte kommer att
@@ -229,6 +242,7 @@ function message(text, type) {
 
 var elem = document.getElementById("levelBar");   
 var XP = 0;
+console.log("Code ran!");
 var nextLevel = 100;
 var level = 1;
 var moneyBonus = 1;
@@ -362,6 +376,9 @@ var statistics = document.getElementById("stats-text");
 
 statBtn.onclick = function() {
     stats.style.display = "block";
+    if (req.session.loggedIn) {
+        console.log("You are logged in!");
+    }
     statistics.innerHTML = 
     "Skill points: " + Math.round(money) + "<br>" + 
     "Epicness: " + ogMPS + " +" + Math.round((moneyBonus - 1) * 100) + "% = " + (Math.floor(moneyPerSecond * 10) / 10) + "<br>" +

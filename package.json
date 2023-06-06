@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -e js,html,njk ./server.js & npm run scss",
-    "scss": "sass --watch scss:public/css"
+    "scss": "sass --watch scss:public/css",
+    "start": "node ./server.js"
   },
   "keywords": [],
   "author": "",

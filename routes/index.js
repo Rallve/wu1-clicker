@@ -7,12 +7,12 @@ const validator = require('validator');
 const pool = require('../utils/database.js');
 const promisePool = pool.promise();
 
+var loggedIn = false;
 
 router.get('/', async function (req, res, next) {
     res.render('index.njk', {
     });
 });
-
 
 router.get('/login', function (req, res, next) {
     res.render('login.njk', { title: 'Login' }); 
@@ -53,15 +53,14 @@ router.post('/login', async function (req, res, next) {
         bcrypt.compare(password, users[0].password, function (err, result) {
             // result == true logga in, annars buuuu 
             if (result) {
-                console.log(users[0].id)
+                
+
                 req.session.userId = username;
                 req.session.LoggedIn = true;
-                nav.splice(2,3);
-                nav.push({
-                    url: "/profile",
-                    title: "Profile"
+                return res.render("index.njk", {
+                    
                 })
-                return res.redirect('/profile');
+                //return res.redirect('/');
             } else {
                 errors.push("Invalid username or password")
                 return res.json(errors)
@@ -74,5 +73,57 @@ router.post('/login', async function (req, res, next) {
     // if username inte är i db : login fail!
 });
 
+
+router.get('/register', async function(req, res) {
+    res.render('register.njk', { title: 'Register' })
+});
+
+router.post('/register', async function(req, res) {
+    const { username, password, passwordConfirmation } = req.body;
+    const errors = [];
+
+    if (username === "") {
+        console.log("Username is Required")
+        errors.push("Username is Required")
+        return res.json(errors)
+    } else if (password === "") {
+        console.log("Password is Required")
+        errors.push("Password is Required")
+        return res.json(errors)
+    } else if(password !== passwordConfirmation ){
+        console.log("Passwords do not match")
+        errors.push("Passwords do not match")
+        return res.json(errors)
+    }
+
+    const [users] = await promisePool.query("SELECT * FROM lgl23clickerPlayers WHERE name=?", username);
+    console.log(users)
+
+    if (users.length > 0) {
+        console.log("Username is already taken")
+        errors.push("Username is already taken")
+        return res.json(errors)
+    }
+
+    await bcrypt.hash(password, 10, async function (err, hash) {
+
+        console.log(hash);
+        const [rows] = await promisePool.query('INSERT INTO lgl23clickerPlayers (name, password) VALUES (?, ?)', [username, hash])
+        res.redirect('/login');
+
+    });
+});
+
+router.get('/crypt/:pwd', async function (req, res, next) {
+    const pwd = req.params.pwd;
+
+    await bcrypt.hash(pwd, 10, function (err, hash) {
+
+        console.log(hash);
+        //return res.json(hash);
+        return res.json({ hash });
+    });
+
+});
 
 module.exports = router;
